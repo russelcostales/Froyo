@@ -1,3 +1,5 @@
+![alt text](https://socialify.git.ci/russelcostales/Froyo/image?description=1&font=Inter&language=1&owner=1&pattern=Floating%20Cogs&theme=Dark)
+
 # Froyo Framework
 A simple and lightweight framework to organize and accelerate game development workflow. Kept simple to reduce time from
 learning a framework and to allow for developers to jump into work with a straight forward client/server structure. The framework
