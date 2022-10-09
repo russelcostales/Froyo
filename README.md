@@ -17,11 +17,11 @@ local Players = game:GetService("Players")
 
 local SpawnPoint = workspace.SpawnPoint
 
-function Module.Main()
-      local player_util = Module.Load("PlayerSpawner")
+function Module:Main()
+      local player_util = self.Load("PlayerSpawner")
 
       Players.PlayerAdded:Connect(function(player)
-            player_util:spawn(SpawnPoint.Position)
+            player_util:Spawn(SpawnPoint.Position)
       end)
 end
 
@@ -47,9 +47,9 @@ Below is an example of how the editor may be used.
 ```lua
 local Dog = {}
 
-function Dog.Main()
-      function Dog.Create()
-            local dog_component = Dog.InteractiveEditor:Create("Dog", {
+function Dog:Main()
+      function self:Create()
+            local dog_component = self.InteractiveEditor:Create("Dog", {
                   Name = "Bailey",
                   Age = 6,
                   Breed = "Labrador Retriever",
@@ -78,7 +78,7 @@ modules to reference to decide behaviors. An example is shown below in how this 
 ```lua
 function Enemies:PathfindAndGetWaypoints()
       -- Pathfinding code
-      if (Enemies.Flags.EnvironmentInTesting) then
+      if (self.Flags.EnvironmentInTesting) then
             -- Create visual points showing where the waypoint nodes are
       end
 end
