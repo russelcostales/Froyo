@@ -116,7 +116,6 @@ function Maid:GivePromise(promise)
 	return newPromise
 end
 
-
 --- Cleans up all tasks.
 -- @alias Destroy
 function Maid:DoCleaning()

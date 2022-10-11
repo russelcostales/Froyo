@@ -4,24 +4,36 @@
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Common": {
-        "$path": "src/Common"
+      "Client": {
+        "$path": "Source/Replicated/Client"
       },
-      "Froyo": {
-        "$path": "src/Froyo"
+      "Framework": {
+        "$path": "Source/Replicated/Framework"
+      },
+      "Libraries": {
+        "$path": "Source/Replicated/Libraries"
       }
     },
 
     "ServerScriptService": {
-      "Server": {
-        "$path": "src/Server"
+      "Framework": {
+        "$path": "Source/Server/Framework"
+      },
+      "Modules": {
+        "$path": "Source/Server/Modules"
+      },
+      "Packages": {
+        "$path": "Source/Server/Packages"
+      },
+      "World": {
+        "$path": "Source/Server/World"
       }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "Client": {
-          "$path": "src/Client"
+        "Starter": {
+          "$path": "Source/Starter"
         }
       }
     },
@@ -51,19 +63,6 @@
             512
           ]
         }
-      }
-    },
-    "Lighting": {
-      "$properties": {
-        "Ambient": [
-          0,
-          0,
-          0
-        ],
-        "Brightness": 2,
-        "GlobalShadows": true,
-        "Outlines": false,
-        "Technology": "Voxel"
       }
     },
     "SoundService": {

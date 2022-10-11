@@ -23,9 +23,9 @@ function Functions.Wrap(module)
                   if typeof(content.Network) ~= "nil" then error("ModuleScript '%s' contains key 'Network'"); end
                   if typeof(content.Load) ~= "nil" then error("ModuleScript '%s' contains key 'Load'"); end
                   
-                  content.InteractiveEditor = require(script.Parent.InteractiveEditor);
+                  content.Components = require(script.Parent.Components);
                   content.Flags = require(script.Parent.Flags)
-                  content.EventRegistry = require(script.Parent.EventRegistry);
+                  content.Dispatcher = require(script.Parent.Dispatcher);
                   content.Wrap = Functions.Wrap;
 
                   content.Network = Functions.LoadModule("Common/Network")

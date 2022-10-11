@@ -9,16 +9,16 @@
 ]]
 
 local PhysicalStorage = Instance.new("Folder", game:GetService("ReplicatedStorage"));
-PhysicalStorage.Name = "Interactive_Editor";
+PhysicalStorage.Name = "InteractiveEditor";
 
-local FroyoInteractiveEditor = {};
+local Components = {};
 
 -- Creates a new component and adds it to the editor's register. Anything created by the Interactive Editor 
 -- is under the class 'Component', which then inherits 'Properties'. All components will then be
 -- created as Instance class 'Configuration' where attributes will be used. 
 
       --@param inherits_properties: [property_name] = default_value
-function FroyoInteractiveEditor:Create(component_name, inherits_properties)
+function Components:Create(component_name, inherits_properties)
       local component = Instance.new("Configuration", PhysicalStorage);
       component.Name = component_name;
 
@@ -56,4 +56,4 @@ function FroyoInteractiveEditor:Create(component_name, inherits_properties)
       return component_live_sync;
 end
 
-return FroyoInteractiveEditor;
+return Components;

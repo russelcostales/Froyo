@@ -7,11 +7,11 @@
       without issue. Also mitigates the issue where an event might not exist yet.
 ]]
 
-local EventRegistry = {_registry = {}; _registry_funcs = {}};
+local Dispatcher = {_registry = {}; _registry_funcs = {}};
 
 local Events = require(game:GetService("ReplicatedStorage").Common.Event)
 
-function EventRegistry:Connect(event_name, callback)
+function Dispatcher:Connect(event_name, callback)
       local event = self._registry[event_name];
       if not event then
             event = Events.new();
@@ -20,14 +20,14 @@ function EventRegistry:Connect(event_name, callback)
       return event:Connect(callback);
 end
 
-function EventRegistry:Fire(event_name, ...)
+function Dispatcher:Fire(event_name, ...)
       if not self._registry[event_name] then
             return;
       end
       self._registry[event_name]:Fire(...);
 end
 
-function EventRegistry:Bind(event_name, callback)
+function Dispatcher:Bind(event_name, callback)
       local event = self._registry_funcs[event_name];
       if (event) then
             warn("A bindable function is being overwritten. Canceling.")
@@ -38,10 +38,10 @@ function EventRegistry:Bind(event_name, callback)
       self._registry_funcs[event_name] = event;
 end
 
-function EventRegistry:FireFunc(event_name, ...)
+function Dispatcher:FireFunc(event_name, ...)
       if self._registry_funcs[event_name] then
             return self._registry_funcs[event_name]:Invoke(...);
       end
 end
 
-return EventRegistry; 
+return Dispatcher; 
