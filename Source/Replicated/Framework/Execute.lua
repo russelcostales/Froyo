@@ -16,9 +16,31 @@ local Locked = false;
 -- @Files Storage of all files found as a descendant of struct folders. This is stored as a dictionary,
 -- where @ signifies the parent.
 
-local Initiables  = {};
+local Paths       = {};
 local Executables = {};
 local Files       = {};
+
+local Dispatcher = require(script.Parent.Dispatcher);
+local Components = require(script.Parent.Components);
+
+local function __import(string_path)
+      if not (Files[string_path]) then return; end
+
+      if (typeof(Files[string_path]) ~= "table") then
+            Files[string_path] = require(Files[string_path]);
+      end
+
+      return Files[string_path];
+end
+
+local function __include(string_identifier)
+      return (string_identifier == "%Dispatcher") and Dispatcher or (string_identifier == "%Components") and Components;
+end
+
+local function __inject(module_table)
+      module_table.import = __import;
+      module_table.include = __include;
+end
 
 local function FileStoreDescendantModules(struct)
       if (typeof(struct) ~= "table") then error("Invalid struct, not type 'table'") end;
@@ -30,9 +52,10 @@ local function FileStoreDescendantModules(struct)
             local path_str = ("%s%s.%s"):format(identifier, descendant.Parent.Name, descendant.Name);
 
             Files[path_str] = descendant;
+            Paths[#Paths+1] = path_str;
             
             local descendants_of_descendant = descendant:GetChildren();
-            if not (descendants_of_descendant > 0) then continue; end
+            if not (#descendants_of_descendant > 0) then continue; end
 
             FileStoreDescendantModules(descendants_of_descendant);
       end
@@ -48,13 +71,36 @@ return function(struct)
       -- needed once.
       Locked = true;
 
-      FileStoreDescendantModules(struct);
-      print(Files)
+      _G.flib = {
+            import = __import,
+            include = __include,
+      };
 
-      for index = 1, #Initiables, 1 do
+      for _, folder in ipairs(struct) do
+            FileStoreDescendantModules(folder);
+      end
 
-            Initiables[index]:Init();
-            Initiables[index] = nil;
+      for _, path_string in ipairs(Paths) do
+            Paths[path_string] = nil;
+
+            local parent_identifier = path_string:sub(1, 1);
+            if (parent_identifier ~= "$") then continue; end
+
+            local module_content = __import(path_string)
+      
+            if (typeof(module_content) ~= "table") then continue; end
+
+            local contains_init = typeof(module_content.Init) == "function";
+            local contains_exec = typeof(module_content.Main) == "function";
+
+            module_content.f_inject = __inject;
+
+            if (contains_init) then
+                  module_content:Init();
+            end
+            
+            if not (contains_exec) then continue; end
+            Executables[#Executables+1] = module_content;
       end
 
       for index = 1, #Executables, 1 do
@@ -64,4 +110,7 @@ return function(struct)
 
             Executables[index] = nil;
       end
+
+      table.clear(_G.flib);
+      table.clear(_G);
 end

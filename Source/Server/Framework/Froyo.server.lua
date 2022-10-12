@@ -1,11 +1,15 @@
--- Froyo Internal Server
+-- Froyo Server
 -- Russel Costales
--- September 21, 2022
+-- October 11, 2022
 
-local Loader = require(game:GetService("ReplicatedStorage").Froyo.Load);
+local ReplicatedStorage = game:GetService("ReplicatedStorage");
+local ServerScriptService = game:GetService("ServerScriptService");
 
-Loader.LoadChildren(game:GetService("ReplicatedStorage").Common:GetChildren());
-Loader.LoadChildren(script:GetChildren());
-Loader.LoadChildren(script.Interactives:GetChildren());
+local Struct = {
+      ServerScriptService.Packages:GetChildren(),
+      ServerScriptService.Modules:GetChildren(),
+      ServerScriptService.World:GetChildren(),
+      ReplicatedStorage.Libraries:GetChildren(),
+}
 
-Loader.Execute();
+require(ReplicatedStorage.Framework.Execute)(Struct);

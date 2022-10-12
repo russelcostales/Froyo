@@ -1,6 +1,6 @@
--- Event Registry
+-- Dispatcher
 -- Russel Costales
--- September 23, 2022
+-- October 12, 2022
 
 --[[
       Event registry created for Sleitnick's event class. This way, other scripts can get/retrieve an event
@@ -9,7 +9,7 @@
 
 local Dispatcher = {_registry = {}; _registry_funcs = {}};
 
-local Events = require(game:GetService("ReplicatedStorage").Common.Event)
+local Events = require(game:GetService("ReplicatedStorage").Libraries.Event)
 
 function Dispatcher:Connect(event_name, callback)
       local event = self._registry[event_name];
@@ -33,8 +33,10 @@ function Dispatcher:Bind(event_name, callback)
             warn("A bindable function is being overwritten. Canceling.")
             return;
       end
-      event = Instance.new("BindableFunction")
-      event.OnInvoke = callback
+
+      event = Instance.new("BindableFunction");
+
+      event.OnInvoke = callback;
       self._registry_funcs[event_name] = event;
 end
 

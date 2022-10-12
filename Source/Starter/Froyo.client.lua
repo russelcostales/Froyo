@@ -7,6 +7,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local Struct = {
       ReplicatedStorage.Client.Interface:GetChildren(),
       ReplicatedStorage.Client.Modules:GetChildren(),
+      ReplicatedStorage.Client.Packages:GetChildren(),
       ReplicatedStorage.Client.World:GetChildren(),
       ReplicatedStorage.Libraries:GetChildren(),
 }
