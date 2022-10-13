@@ -9,7 +9,7 @@
 ]]
 
 local PhysicalStorage = Instance.new("Folder", game:GetService("ReplicatedStorage"));
-PhysicalStorage.Name = "InteractiveEditor";
+PhysicalStorage.Name = "Components";
 
 local Components = {};
 

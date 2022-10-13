@@ -71,10 +71,8 @@ return function(struct)
       -- needed once.
       Locked = true;
 
-      _G.flib = {
-            import = __import,
-            include = __include,
-      };
+      _G.import = __import
+      _G.include = __include
 
       for _, folder in ipairs(struct) do
             FileStoreDescendantModules(folder);
@@ -111,6 +109,5 @@ return function(struct)
             Executables[index] = nil;
       end
 
-      table.clear(_G.flib);
       table.clear(_G);
 end

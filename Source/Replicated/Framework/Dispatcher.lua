@@ -40,7 +40,7 @@ function Dispatcher:Bind(event_name, callback)
       self._registry_funcs[event_name] = event;
 end
 
-function Dispatcher:FireFunc(event_name, ...)
+function Dispatcher:Invoke(event_name, ...)
       if self._registry_funcs[event_name] then
             return self._registry_funcs[event_name]:Invoke(...);
       end
