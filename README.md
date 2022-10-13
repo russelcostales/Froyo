@@ -55,6 +55,7 @@ Dispatcher:Fire("print_hello_world");
 ```
 **Note:** Bindable functions can also be accessed and used in a similar manner via:
 > :Bind(string_identifier, function)
+
 > :Invoke(string_identifier, argument_1, argument_2, ...);
 
 The **Components** module is modeled after Unity's component editor. In the case that the developer may have to edit values to influence the result of a script, the components module
