@@ -79,10 +79,10 @@ the passed keys and values will be stored as attributes in the properties panel.
 By default, the framework organizes modules via the interface (if on client), modules, packages, and the world folders. See below for information about each. 
 **Note:** Developers wishing to update the names, add or delete folders, or restructure must update the start script. 
 
-- Interface: Modules specific to modifying UI objects. Examples include: Custom Chat, Main Menu, Character Selector
-- Modules: Code vital to game processes that are always running. Examples include: Camera, Character Controllers, Datastores, NPC Controllers
-- Packages: Code meant to be used as a tool of code stored in the modules folder. They are standalone and should not be using the importer unless they are accessing the shared library.
-- World: Anything pertaining to world objects can be stored in this folder. Examples include: Lighting, Interaction System, Vegetation
-- Libraries: Same premise as shared folders and packages. Though these are specifically meant to be accessible by both the client and the server.
+- **Interface:** Modules specific to modifying UI objects. Examples include: Custom Chat, Main Menu, Character Selector
+- **Modules:** Code vital to game processes that are always running. Examples include: Camera, Character Controllers, Datastores, NPC Controllers
+- **Packages:** Code meant to be used as a tool of code stored in the modules folder. They are standalone and should not be using the importer unless they are accessing the shared library.
+- **World:** Anything pertaining to world objects can be stored in this folder. Examples include: Lighting, Interaction System, Vegetation
+- **Libraries:** Same premise as shared folders and packages. Though these are specifically meant to be accessible by both the client and the server.
 
 **Final Note:** Do not modify code stored within the Framework modules unless issues are found or the client and server folders are restructured.
