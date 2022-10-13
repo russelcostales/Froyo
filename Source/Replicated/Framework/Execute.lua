@@ -47,6 +47,7 @@ local function FileStoreDescendantModules(struct)
       
       for _, descendant in ipairs(struct) do
             if (typeof(descendant) ~= "Instance") then continue; end
+            if not (descendant:IsA("ModuleScript")) then continue; end
 
             local identifier = descendant.Parent:IsA("ModuleScript") and "@" or "$";
             local path_str = ("%s%s.%s"):format(identifier, descendant.Parent.Name, descendant.Name);
