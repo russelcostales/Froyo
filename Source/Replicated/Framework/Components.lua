@@ -8,8 +8,9 @@
       to a module's process.
 ]]
 
-local PhysicalStorage = Instance.new("Folder", game:GetService("ReplicatedStorage"));
-PhysicalStorage.Name = "Components";
+local PhysicalStorage = Instance.new("Configuration", game:GetService("ReplicatedStorage"));
+local machine_name = game:GetService("RunService"):IsServer() and "Server" or "Client";
+PhysicalStorage.Name = machine_name .. "Components";
 
 local Components = {};
 

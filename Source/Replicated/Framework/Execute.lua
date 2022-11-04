@@ -47,6 +47,12 @@ local function FileStoreDescendantModules(struct)
       
       for _, descendant in ipairs(struct) do
             if (typeof(descendant) ~= "Instance") then continue; end
+
+            local descendants_of_descendant = descendant:GetChildren();
+            if (#descendants_of_descendant > 0) then 
+                  FileStoreDescendantModules(descendants_of_descendant);
+            end
+
             if not (descendant:IsA("ModuleScript")) then continue; end
 
             local identifier = descendant.Parent:IsA("ModuleScript") and "@" or "$";
@@ -54,11 +60,6 @@ local function FileStoreDescendantModules(struct)
 
             Files[path_str] = descendant;
             Paths[#Paths+1] = path_str;
-            
-            local descendants_of_descendant = descendant:GetChildren();
-            if not (#descendants_of_descendant > 0) then continue; end
-
-            FileStoreDescendantModules(descendants_of_descendant);
       end
 end
 
@@ -78,6 +79,8 @@ return function(struct)
       for _, folder in ipairs(struct) do
             FileStoreDescendantModules(folder);
       end
+      
+      local TERMINATE
 
       for _, path_string in ipairs(Paths) do
             Paths[path_string] = nil;
@@ -95,11 +98,19 @@ return function(struct)
             module_content.f_inject = __inject;
 
             if (contains_init) then
-                  module_content:Init();
+                  local result = module_content:Init();
+                  if result == "FROYO_TERMINATE" then
+                        TERMINATE = true
+                        return
+                  end
             end
             
             if not (contains_exec) then continue; end
             Executables[#Executables+1] = module_content;
+      end
+
+      if TERMINATE then
+            return
       end
 
       for index = 1, #Executables, 1 do

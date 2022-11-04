@@ -5,27 +5,25 @@
 local Clock = {}
 Clock.__index = Clock
 
-function Clock.new(interval, reverse)
+function Clock.new(interval)
 	return setmetatable({
 		_sTime = os.clock(),
 		_interval = interval,
-		_reverse = reverse,
 	}, Clock)
 end
 
-function Clock:Set()
+function Clock:ForceSetLastTimeToCurrent()
 	self._sTime = os.clock()
 end
 
-function Clock:Reset()
+function Clock:ForceSetToSurpassed()
 	self._sTime = -math.huge
 end
 
-function Clock:Verify()
+function Clock:SurpassedTimeInterval()
 	local result = os.clock() - self._sTime > self._interval
 	if result then
 		self._sTime = os.clock()
-		
 		return true
 	end
 end
