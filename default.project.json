@@ -19,30 +19,30 @@
     },
 
     "ServerScriptService": {
-      "Framework": {
-        "$path": "Source/Server/Framework"
+      "Init": {
+        "$path": "Source/Server/Init"
       },
       "Modules": {
         "$path": "Source/Server/Modules"
       },
       "Content": {
         "$path": "Source/Server/Content"
-      },
-      "World": {
-        "$path": "Source/Server/World"
       }
     },
 
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "Starter": {
-          "$path": "Source/Starter"
+        "Init": {
+          "$path": "Source/Client/Init"
         },
-        "Client": {
-          "$path": "Source/Client"
+        "Content": {
+          "$path": "Source/Client/Content"
         },
         "Interface": {
-          "$path": "Source/Interface"
+          "$path": "Source/Client/Interface"
+        },
+        "Modules": {
+          "$path": "Source/Client/Modules"
         }
       }
     },

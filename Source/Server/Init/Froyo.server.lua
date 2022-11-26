@@ -8,7 +8,6 @@ local ServerScriptService = game:GetService("ServerScriptService");
 local Struct = {
       ServerScriptService.Content:GetChildren(),
       ServerScriptService.Modules:GetChildren(),
-      ServerScriptService.World:GetChildren(),
       ReplicatedStorage.SharedLibrary:GetChildren(),
 }
 
