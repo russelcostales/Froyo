@@ -6,9 +6,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage");
 local ServerScriptService = game:GetService("ServerScriptService");
 
 local Struct = {
-      ServerScriptService.Content:GetChildren(),
-      ServerScriptService.Modules:GetChildren(),
-      ReplicatedStorage.SharedLibrary:GetChildren(),
+      [ServerScriptService.Content] = true,
+      [ServerScriptService.Modules] = false,
+      [ReplicatedStorage.SharedLibrary] = false,
 }
 
 require(ReplicatedStorage.Framework.Execute)(Struct);

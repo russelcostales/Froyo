@@ -26,7 +26,7 @@ local Components = require(script.Parent.Components);
 local function __import(string_path)
       if not (Files[string_path]) then return; end
 
-      if (typeof(Files[string_path]) ~= "table") then
+      if (typeof(Files[string_path]) == "Instance") then
             Files[string_path] = require(Files[string_path]);
       end
 
@@ -42,7 +42,7 @@ local function __inject(module_table)
       module_table.include = __include;
 end
 
-local function FileStoreDescendantModules(struct)
+local function FileStoreDescendantModules(struct, dontRunFlag)
       if (typeof(struct) ~= "table") then error("Invalid struct, not type 'table'") end;
       
       for _, descendant in ipairs(struct) do
@@ -59,7 +59,10 @@ local function FileStoreDescendantModules(struct)
             local path_str = ("%s%s.%s"):format(identifier, descendant.Parent.Name, descendant.Name);
 
             Files[path_str] = descendant;
-            Paths[#Paths+1] = path_str;
+
+            if not dontRunFlag then
+                  Paths[#Paths+1] = path_str;
+            end
       end
 end
 
@@ -76,8 +79,8 @@ return function(struct)
       _G.import = __import
       _G.include = __include
 
-      for _, folder in ipairs(struct) do
-            FileStoreDescendantModules(folder);
+      for folder, dontRunFlag in pairs(struct) do
+            FileStoreDescendantModules(folder:GetChildren(), dontRunFlag);
       end
       
       local TERMINATE
@@ -89,7 +92,11 @@ return function(struct)
             if (parent_identifier ~= "$") then continue; end
 
             local module_content = __import(path_string)
-      
+
+            if (typeof(module_content) == "function") then
+                  module_content();
+                  continue;
+            end
             if (typeof(module_content) ~= "table") then continue; end
 
             local contains_init = typeof(module_content.Init) == "function";
