@@ -42,7 +42,7 @@ local function __inject(module_table)
       module_table.include = __include;
 end
 
-local function FileStoreDescendantModules(struct, dontRunFlag)
+local function FileStoreDescendantModules(struct, runFlag)
       if (typeof(struct) ~= "table") then error("Invalid struct, not type 'table'") end;
       
       for _, descendant in ipairs(struct) do
@@ -60,7 +60,7 @@ local function FileStoreDescendantModules(struct, dontRunFlag)
 
             Files[path_str] = descendant;
 
-            if not dontRunFlag then
+            if runFlag then
                   Paths[#Paths+1] = path_str;
             end
       end
@@ -94,7 +94,7 @@ return function(struct)
             local module_content = __import(path_string)
 
             if (typeof(module_content) == "function") then
-                  module_content();
+                  task.spawn(module_content);
                   continue;
             end
             if (typeof(module_content) ~= "table") then continue; end
